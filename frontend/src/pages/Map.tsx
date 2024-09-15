@@ -2,11 +2,17 @@
 import React, { useEffect, useState } from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
+import {ref,onValue,set} from 'firebase/database'
+import {database} from '../configs/firebase.ts'
 
 const Map = () => {
 
 const [latitude,setLatitude] = useState<number | null>();
 const [longitude,setLongitude] = useState<number | null>(); 
+
+const [latitude1,setLatitude1] = useState<number | null>();
+const [longitude1, setLongitude1] = useState<number | null>();
+
 
 useEffect(() => {
   try{
@@ -16,6 +22,9 @@ useEffect(() => {
           const {latitude, longitude} = position.coords;
           setLatitude(latitude);
           setLongitude(longitude);
+          set(ref(database, 'locations/mylocation'),{
+            latitude,longitude
+          })
         }
       )
     }
