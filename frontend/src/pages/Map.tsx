@@ -34,7 +34,7 @@ useEffect(() => {
           <MapContainer
           center={[latitude, longitude]} 
           zoom={13}
-          scrollWheelZoom={false}
+          scrollWheelZoom={true}
           className="w-full h-full"
         >
           <TileLayer
@@ -42,7 +42,7 @@ useEffect(() => {
             attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           />
           {/* The attribution is required while using open street maps */}
-          <Marker position={[20.2376, 84.2700]}>
+          <Marker position={[latitude,longitude]}>
             <Popup>
              Friend 1
             </Popup>
