@@ -47,6 +47,12 @@ useEffect(() => {
              Friend 1
             </Popup>
           </Marker>
+
+          <Marker position={[latitude,longitude+1]}>
+            <Popup>
+             Friend 2
+            </Popup>
+          </Marker>
          
 
         </MapContainer>
