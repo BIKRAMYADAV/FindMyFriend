@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import {ref,onValue,set} from 'firebase/database'
-import {database} from '../configs/firebase.ts'
+import {auth, database} from '../configs/firebase.ts'
 
 const Map = () => {
 
@@ -20,9 +20,13 @@ useEffect(() => {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const {latitude, longitude} = position.coords;
+          let userId;
+          if (auth.currentUser)
+           userId = auth.currentUser.uid;
+
           setLatitude(latitude);
           setLongitude(longitude);
-          set(ref(database, 'locations/mylocation'),{
+          set(ref(database, 'locations/'+userId),{
             latitude,longitude
           })
         }
