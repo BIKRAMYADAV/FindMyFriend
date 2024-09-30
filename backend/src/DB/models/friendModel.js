@@ -11,3 +11,5 @@ const friendSchema = new mongoose.Schema({
         required: true
     }
 })
+
+const friendModel = mongoose.model('friendModel', friendSchema);
