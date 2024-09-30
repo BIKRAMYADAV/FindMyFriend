@@ -9,6 +9,10 @@ const friendSchema = new mongoose.Schema({
     id: {
         type: String,
         required: true
+    },
+    phoneNumber : {
+        type: Number,
+        required: true
     }
 })
 

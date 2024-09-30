@@ -12,7 +12,7 @@ class friendRepository {
     }
     async AddFriend(friend) {
         try {
-            const {name, id} = friend;
+            const {name, id, phoneNumber} = friend;
             const existingFriend = await friendModel.findOne({name,id});
             if (existingFriend){
                 return {

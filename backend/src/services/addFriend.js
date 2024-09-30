@@ -1,13 +1,49 @@
-const FriendModel = require('../DB/models/friendModel');
+const friendRepository = require('../DB/repository/friend-repository')
 
-const addFriend = async (friend) => {
-  try {
-    const newFriend = new FriendModel(friend);
-    await newFriend.save();
-    console.log('The new friend was added successfully');
-  } catch (error) {
-    console.error("Error saving the new friend:", error.message || error);
+class FormService {
+  constructor(){
+    this.repository = new friendRepository();
   }
-};
 
-module.exports = { addFriend };
+
+async getAllFriend(req) {
+  try {
+    const {email} = req.userInfo;
+    const response = await this.repository.getAllFriend();
+    return {
+      status: 200,
+      data: response
+    }
+  } catch (error){
+    console.error(error);
+    return {
+      status : 500,
+      message : "Cannot get al friends"
+    }
+  }
+}
+
+async addNewFriend (req) {
+  try {
+    const {name, phoneNumber} = req.body;
+    const {email} = req.userInfo;
+    const friend = {name, phoneNumber};
+    const response = await this.repository.AddFriend(data);
+    return response;
+  } catch (error) {
+    console.error(error);
+    return {
+      status : 500,
+      message : "cannot create new friend"
+    }
+  }
+}
+
+async deleteFriend (req) {
+  try {
+    const {id} = req.params;
+    const {email} = req.userInfo;
+    const response = await this.repository.deleteFriend()
+  }
+}
+}
