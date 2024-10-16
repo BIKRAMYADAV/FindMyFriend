@@ -1,15 +1,14 @@
-const friendRepository = require('../DB/repository/friend-repository')
+const FriendRepository = require('../DB/repository/friend-repository')
 
-class FormService {
+class FriendService {
   constructor(){
-    this.repository = new friendRepository();
+    this.repository = new FriendRepository();
   }
 
 
 async getAllFriend(req) {
   try {
-    const {email} = req.userInfo;
-    const response = await this.repository.getAllFriend();
+    const response = await this.repository.AllFriends();
     return {
       status: 200,
       data: response
@@ -23,12 +22,11 @@ async getAllFriend(req) {
   }
 }
 
-async addNewFriend (req) {
+async addFriend (req) {
   try {
-    const {name, phoneNumber} = req.body;
-    const {email} = req.userInfo;
-    const friend = {name, phoneNumber};
-    const response = await this.repository.AddFriend(data);
+    const {name, phone} = req;
+    const friend = {name, phone};
+    const response = await this.repository.AddFriend(friend);
     return response;
   } catch (error) {
     console.error(error);
@@ -44,6 +42,11 @@ async deleteFriend (req) {
     const {id} = req.params;
     const {email} = req.userInfo;
     const response = await this.repository.deleteFriend()
+  } catch (error){
+    console.error('There was an error in deleting the friend', error);
+    throw error;
   }
 }
 }
+
+module.exports = FriendService;

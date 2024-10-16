@@ -6,11 +6,8 @@ const friendSchema = new mongoose.Schema({
         ,
         required: true
     },
-    id: {
-        type: String,
-        required: true
-    },
-    phoneNumber : {
+  
+    phone : {
         type: Number,
         required: true
     }

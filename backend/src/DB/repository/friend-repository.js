@@ -1,6 +1,7 @@
 const friendModel = require('../models/friendModel')
 
-class friendRepository {
+class FriendRepository {
+
     async AllFriends() {
             try {
                 const data = await friendModel.find();
@@ -12,8 +13,8 @@ class friendRepository {
     }
     async AddFriend(friend) {
         try {
-            const {name, id, phoneNumber} = friend;
-            const existingFriend = await friendModel.findOne({name,id});
+            const {name, phone} = friend;
+            const existingFriend = await friendModel.findOne({name,phone});
             if (existingFriend){
                 return {
                     status: "409",
@@ -54,4 +55,4 @@ class friendRepository {
     }
 }
 
-module.exports = friendRepository;
+module.exports = FriendRepository;
