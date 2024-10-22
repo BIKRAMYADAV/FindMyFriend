@@ -1,8 +1,9 @@
 const express = require('express')
-const {getFriend,addFriendApi} = require('./api')
+const {getFriend,addFriendApi, register, login} = require('./api')
 module.exports = async (app) => {
     app.use(express.json());
-    // app.use(cors());
     getFriend(app);
     addFriendApi(app);
+    register(app);
+    login(app);
 };
