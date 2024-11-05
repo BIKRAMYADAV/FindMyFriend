@@ -1,28 +1,36 @@
-const friendModel = require('../models/friendModel')
+const userModel = require('../models/userModel');
+
 
 class FriendRepository {
 
-    async AllFriends() {
+    async AllFriends(username) {
             try {
-                const data = await friendModel.find();
-                return data;
+                const user = await userModel.findOne(username);
+                //When find was used, user was returned as an array but I want it as a singular object as username is unique
+                console.log("The user is : ", user);
+                console.log("The user.friends is : ", user.friends);
+                return user.friends;
             } catch (error){
                 console,error('There was an error in fetching all the friends', error);
                 throw error;
             }
     }
-    async AddFriend(friend) {
+    async AddFriend(username,friend) {
         try {
             const {name, phone} = friend;
-            const existingFriend = await friendModel.findOne({name,phone});
+            const user = await userModel.findOne(username);
+            const existingFriend = user.friends.find(f => f.name == name && f.phone == phone)
             if (existingFriend){
                 return {
                     status: "409",
                     message: `${name} already exists as a friend`
                 }
             }
-            const response = new friendModel({...friend});
-            await response.save();
+            user.friends.push(friend);
+            user.friendsCount = user.friends.length;
+
+            await user.save();//save the user document
+            
             return {
                 status: "200",
                 message: "friend added succesfully"

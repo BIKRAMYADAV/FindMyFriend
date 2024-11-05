@@ -10,9 +10,17 @@ const userSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
+    password:{
+        type: String,
+        required: true
+    },
     friendsCount : {
         type: Number,
-        required: true
+        
+    },
+    friends: {
+        type: Array,
+        default: []
     },
     fmfId : {
         type : String,

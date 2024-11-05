@@ -8,7 +8,9 @@ class FriendService {
 
 async getAllFriend(req) {
   try {
-    const response = await this.repository.AllFriends();
+  const {username} = req.userInfo;
+    const response = await this.repository.AllFriends(username);
+    console.log("The response in addFriend.js: ",response);
     return {
       status: 200,
       data: response
@@ -24,9 +26,10 @@ async getAllFriend(req) {
 
 async addFriend (req) {
   try {
-    const {name, phone} = req;
+    const username = req.userInfo;
+    const {name, phone} = req.body;
     const friend = {name, phone};
-    const response = await this.repository.AddFriend(friend);
+    const response = await this.repository.AddFriend(username,friend);
     return response;
   } catch (error) {
     console.error(error);
